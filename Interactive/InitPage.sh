@@ -5,12 +5,15 @@ DisplayPage() {
 	row=$(((term_rows - banner_rows) / 2))
  	col=$(((term_cols - banner_cols) / 2))
 
+        old_IFS=IFS
+        IFS=''
 	#tput cup $row $col	
-	while IFS='' read -r line || [[ -n "$line" ]]; do
+	while read -r line || [[ -n "$line" ]]; do
 		tput cup $row $col
       		echo -n "$line"
       		((++row))
 	done < $filepath
+        IFS=old_IFS
 }
 
 ClearPage() {
